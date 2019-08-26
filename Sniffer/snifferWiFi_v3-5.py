@@ -541,10 +541,10 @@ class ThreadInvio():
 		global snifferId
 		while True:
 			time.sleep(30)
+			lock.acquire()
 			try:
 				print "INVIO IN CORSO..."
 				#print "DIMENSIONE SQLSTRUCT PRE ELIMINAZIONE: " , asizeof(sql_struct)
-				lock.acquire()
 				#connessione al db per registrare i dati
 				now_real = []
 				now_ran = []
@@ -578,10 +578,10 @@ class ThreadInvio():
 				del delta_real
 				del delta_ran
 				#print "DIMENSIONE SQLSTRUCT POST ELIMINAZIONE: " , asizeof(sql_struct)
-				lock.release()
 					
 			except requests.exceptions.RequestException as e:
 				print("Errore invio")
+			lock.release()
 			
 class ThreadSniffing():
 	def __init__(self):
