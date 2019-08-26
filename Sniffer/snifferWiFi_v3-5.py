@@ -15,10 +15,8 @@ import gc
 import errno
 import urllib2, urllib
 import netifaces
-import mysql.connector
 from datetime import datetime
 from scapy.layers.dot11 import Dot11, Dot11Elt
-from pympler.asizeof import asizeof
 
 x=netifaces.interfaces()
 iface=""
@@ -583,14 +581,8 @@ class ThreadInvio():
 				lock.release()
 					
 			except requests.exceptions.RequestException as e:
-                		print("Errore invio")
-			'''try:
-				userdata = {'Id' : snifferId , 'numReali' : now_reali   , 'numRandom' : now_random}
-				resp = requests.post('http://sniffer5terre.altervista.org/php/gestione_dati.php', params=userdata)
-				print("Inviato")
-			except requests.exceptions.RequestException as e:
-                        	print("Errore invio")
-			'''
+				print("Errore invio")
+			
 class ThreadSniffing():
 	def __init__(self):
 		self._running = True
@@ -600,6 +592,7 @@ class ThreadSniffing():
 		sniff(iface=iface, prn = PacketHandler )
 
 
+'''
 class ThreadCancellazione():
 	def __init__(self):
 			self._running = True
@@ -639,16 +632,16 @@ class ThreadCancellazione():
 			old_random = 0
 			gc.collect()
 			lock.release()			
-
+'''
 
 Invio = ThreadInvio()
 Sniffer = ThreadSniffing()
-Cancellazione = ThreadCancellazione()
+#Cancellazione = ThreadCancellazione()
 
 InvioT = Thread(target = Invio.run)
 SnifferT = Thread(target = Sniffer.run)
-CancellazioneT = Thread(target = Cancellazione.run)
+#CancellazioneT = Thread(target = Cancellazione.run)
 
 InvioT.start()
 SnifferT.start()
-CancellazioneT.start()
+#CancellazioneT.start()
