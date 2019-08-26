@@ -29,6 +29,16 @@ scabio file sftp:
 WinSCP
 
 usr-password raspberry: pi - raspberry 
+usr-password raspberry raspi.img: pi - raspberrypi
+
+collegamento reverse ssh tunnel con remot3.it:
+sudo apt-get update
+sudo apt-get install weavedconnectd
+sudo weavedinstaller
+-accesso con credenziali remot3.it
+-nome del dispositivo
+
+
 
 note:
 nello script nel chiamare la funzione sniff, al parametro iface viene passata l'interfaccia con il nome più lungo (visto che quella in monitor mode si chiamerà "wlan?mon"
