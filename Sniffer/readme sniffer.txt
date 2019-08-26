@@ -37,6 +37,8 @@ sudo apt-get install weavedconnectd
 sudo weavedinstaller
 -accesso con credenziali remot3.it
 -nome del dispositivo
+-abilitare servizio ssh
+-da remot3.it cliccare sul dispositivo cliccare sul servizio ssh appena creato e copiare indirizzo-porta in un tool ssh
 
 
 
