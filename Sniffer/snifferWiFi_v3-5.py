@@ -15,7 +15,8 @@ import gc
 import errno
 import urllib2, urllib
 import netifaces
-from datetime import datetime
+import datetime
+import time
 from scapy.layers.dot11 import Dot11, Dot11Elt
 
 x=netifaces.interfaces()
@@ -81,16 +82,16 @@ def SsidMatch( mac1 , mac2):
 
 #cancella il mac più vecchio e estende il log di quello più nuovo  
 def Aggrega( mac1 , macaddr1 , mac2 , macaddr2 ):
-	print "aggrego"
+	#print "aggrego"
 	if mac1['myid'] < mac2['myid']: #(mac1['log'][-1]['time'] < mac2['log'][-1]['time']):
-		print "cancello il primo"
+		#print "cancello il primo"
 		mac1['canc'] = True
 		for x in mac2['log']:
 			mac1['log'].append(x)
 		mac2['log']= mac1['log']
 		mac2['pastMac'] = list(set(mac2['pastMac']) | set(mac1['pastMac']) | set ([macaddr1]) )
 	else:
-		print "cancello il secondo"
+		#print "cancello il secondo"
 		mac2['canc'] = True
 		for x in mac1['log']:
 			mac2['log'].append(x)
@@ -103,42 +104,42 @@ def Compara( mac1 , macaddr1 , mac2 , macaddr2 ): #mac1=>set1 mac2=>set2
 	#print mac2['log']
 	
 	if mac1['uuid'] != '' and mac1['uuid'] == mac2['uuid']:
-		print "controllo su uuid"
+		#print "controllo su uuid"
 		Aggrega(mac1 , macaddr1 , mac2 , macaddr2)
 		return True;
 
 	elif SsidMatch(mac1 , mac2):	#se hanno tutti gli ssid in comune li aggrego 
-		print "controllo ssid"
+		#print "controllo ssid"
 		Aggrega(mac1 , macaddr1 , mac2 , macaddr2) #segno che quello più vecchio è da cancellare
 		return True;
 	
 	elif abs(mac1['log'][0]['time']- mac2['log'][-1]['time']) < 7  and abs(mac1['log'][0]['pow']- mac2['log'][-1]['pow']) < 10  :	#il time del primo log del mac i e il time dell'ultimo log del mac j siano distanti meno di 2 secondi e che le due potenze differiscano poco
-		print "controllo mac1log0-mac2log-1 e potenza"
+		#print "controllo mac1log0-mac2log-1 e potenza"
 		Aggrega(mac1 , macaddr1 , mac2 , macaddr2)
 		return True;
 	
 	elif abs(mac1['log'][-1]['time']- mac2['log'][0]['time']) < 7  and abs(mac1['log'][-1]['pow']- mac2['log'][0]['pow']) < 10  :
-		print "controllo mac1log-1-mac2log0 e potenza"		
+		#print "controllo mac1log-1-mac2log0 e potenza"		
 		Aggrega(mac1 , macaddr1 , mac2 , macaddr2)	
 		return True;
 
 	elif CalcDist(mac1['log'][-1]['seq'] , mac2['log'][0]['seq']) < 25 and abs(mac1['log'][-1]['time']- mac2['log'][0]['time']) < 7:
-		print "controllo mac1log-1-mac2log0 sq e time"				
+		#print "controllo mac1log-1-mac2log0 sq e time"				
 		Aggrega(mac1 , macaddr1 , mac2 , macaddr2)	
 		return True;
 
 	elif CalcDist(mac1['log'][0]['seq'] , mac2['log'][-1]['seq']) < 25 and abs(mac1['log'][0]['time']- mac2['log'][-1]['time']) < 7:
-		print "controllo mac1log0-mac2log-1 sq e time"						
+		#print "controllo mac1log0-mac2log-1 sq e time"						
 		Aggrega(mac1 , macaddr1 , mac2 , macaddr2)	
 		return True;
 
 	elif CalcDist(mac1['log'][0]['seq'] , mac2['log'][-1]['seq']) < 20 and abs(mac1['log'][0]['pow']- mac2['log'][-1]['pow']) < 10  :
-		print "controllo sn e potenza"
+		#print "controllo sn e potenza"
 		Aggrega(mac1 , macaddr1 , mac2 , macaddr2)
 		return True;
 	
 	elif CalcDist(mac1['log'][-1]['seq'] , mac2['log'][0]['seq']) < 20 and abs(mac1['log'][-1]['pow']- mac2['log'][0]['pow']) < 10  :
-		print "controllo sn e potenza"
+		#print "controllo sn e potenza"
 		Aggrega(mac1 , macaddr1 , mac2 , macaddr2)
 		return True;
 	return False;
@@ -335,26 +336,29 @@ def checkCancellazione():
 	global SigList
 	
 	#print "DIMENSIONE DIZIONARIO PRE ELIMINAZIONE: " , asizeof(SigList)
-	#aggregazione dei random
-	for k in SigList.keys() :
-		for q in SigList[k].keys():
-			if (SigList[k][q]['RandomMac'])== True and (SigList[k][q]['canc']) == False :
-				for w in SigList[k].keys():
-					if (SigList[k][w]['RandomMac'])== True and w != q  and (SigList[k][w]['canc']) == False :
-						print "comparo",q, w
-						Compara(SigList[k][q] , q , SigList[k][w] , w);
-
+	
 	#cancello i vecchi mac
 	for k in SigList.keys():
 		for q in SigList[k].keys():
 			if SigList[k][q]['RandomMac']==True:
 				if abs(SigList[k][q]['log'][-1]['time'] - time.time()) > 20:
 					SigList[k][q]['canc'] = True
-					print "cancello random per vecchiaia",q
+					#print "cancello random per vecchiaia",q
 			else:
 				if abs(SigList[k][q]['log'][-1]['time']-time.time()) > 60:
 					SigList[k][q]['canc']=True
-					print 'cancello global per vecchiaia',q 
+					#print 'cancello global per vecchiaia',q 
+					
+	#aggregazione dei random
+	for k in SigList.keys() :
+		for q in SigList[k].keys():
+			if (SigList[k][q]['RandomMac'])== True and (SigList[k][q]['canc']) == False :
+				for w in SigList[k].keys():
+					if (SigList[k][w]['RandomMac'])== True and w != q  and (SigList[k][w]['canc']) == False :
+						#print "comparo",q, w
+						Compara(SigList[k][q] , q , SigList[k][w] , w);
+
+	
 
 	#cancello mac aggregati e o vecchi
 	
@@ -418,7 +422,7 @@ def checkWrongSignature(packet,key):
 def updateDb(address,now_reali,now_random,delta_reali,delta_random):
 	global sql_struct
 	global snifferId
-	timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+	timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 	sublist = []
 	sublist.append(snifferId)
 	sublist.append(address)
@@ -442,6 +446,7 @@ def PacketHandler(pkt) :
 
 	if pkt.haslayer(Dot11) :
   
+		#print "RICEZIONE..."
     #beacon frame (quello che manda l'ap periodicamente per segnalare la sua presenza)
 		if pkt.type == 0 and pkt.subtype == 8 :   
 			ApList[pkt.addr2]= pkt.info
@@ -450,11 +455,11 @@ def PacketHandler(pkt) :
     #probe request e controllo che la potenza sia > -99 => -(256-ord(pkt.notdecoded[-4:-3])=potenza=>RSSI)
 		if pkt.type == 0 and pkt.subtype == 4 and -(256-ord(pkt.notdecoded[-4:-3])) > -99 :
 			key = getSignature(pkt)
-			print "Trovato ", pkt.addr2
+			#print "Trovato ", pkt.addr2
 			if (SigList.has_key(key)): #se la signature derivata dal modello è presente nella mia lista
-				print ("Signature già in memoria")
+				#print ("Signature già in memoria")
 				if (SigList[key].has_key(pkt.addr2)):	#e ha anche associato il macaddr2 appena rilevato
-					print ("Mac address già in memoria")
+					#print ("Mac address già in memoria")
 					if pkt.info !='' and pkt.info not in SigList[key][pkt.addr2]['ssids']:	
 						SigList[key][pkt.addr2]['ssids'].append(pkt.info)
 
@@ -462,7 +467,7 @@ def PacketHandler(pkt) :
 					if getUuid(pkt) != '':	
 						SigList[key][pkt.addr2]['uuid'] = getUuid(pkt)
 				else:	#la signature che era presente non ha il macaddr2 sniffato ora
-					print "Nuovo Mac"
+					#print "Nuovo Mac"
 					ssids_list = []
 					if pkt.info != '':
 						ssids_list.append(pkt.info)
@@ -496,35 +501,35 @@ def PacketHandler(pkt) :
 				for q in SigList[k]:
 					print q
 			'''
-			print ""
-			print "Mac reali:",now_reali," Mac random: ",now_random
-			print ""
-			print "=========================================="
-			print ""
+			#print ""
+			#print "Mac reali:",now_reali," Mac random: ",now_random
+			#print ""
+			#print "=========================================="
+			#print ""
 	
 		
-		checkCancellazione()
-		lock.acquire()
-		for k in SigList.keys() :
-			for q in SigList[k].keys():
-				if (SigList[k][q]['canc'])== True:
-					print "cancello perchè aggregato o vecchio",q
-					if SigList[k][q]['RandomMac']:
-						now_random = now_random - 1
-					else:
-						now_reali = now_reali - 1
-					mac=q
-					SigList[k].pop(q,None)
-					delta_reali = now_reali - old_reali
-					delta_random = now_random - old_random
-					updateDb(mac,now_reali,now_random,delta_reali,delta_random)
-					if not SigList[k]:
-						#del SigList[k]
-						SigList[k].clear()
-						SigList.pop(k,None)
-					old_reali = now_reali
-					old_random = now_random
-		lock.release()
+			checkCancellazione()
+			lock.acquire()
+			for k in SigList.keys() :
+				for q in SigList[k].keys():
+					if (SigList[k][q]['canc'])== True:
+						#print "cancello perchè aggregato o vecchio",q
+						if SigList[k][q]['RandomMac']:
+							now_random = now_random - 1
+						else:
+							now_reali = now_reali - 1
+						mac=q
+						SigList[k].pop(q,None)
+						delta_reali = now_reali - old_reali
+						delta_random = now_random - old_random
+						updateDb(mac,now_reali,now_random,delta_reali,delta_random)
+						if not SigList[k]:
+							#del SigList[k]
+							SigList[k].clear()
+							SigList.pop(k,None)
+						old_reali = now_reali
+						old_random = now_random
+			lock.release()
 
 class ThreadInvio():
 	def __init__(self):
@@ -540,7 +545,12 @@ class ThreadInvio():
 		global now_random
 		global snifferId
 		while True:
-			time.sleep(30)
+			dayhour = datetime.datetime.now().strftime('%H:%M')
+			lower = datetime.time(0,0).strftime('%H:%M')
+			upper = datetime.time(6,0).strftime('%H:%M')
+			if dayhour > lower and dayhour < upper:
+				print dayhour
+			time.sleep(10)
 			lock.acquire()
 			try:
 				print "INVIO IN CORSO..."
@@ -553,30 +563,44 @@ class ThreadInvio():
 				times = ""
 				macs = ""
 				
-				for l in sql_struct:	
-					now_real.append(l[4])
-					now_ran.append(l[5])
-					times = times + str(l[6]) + ", "
-					macs = macs + l[1] + ", "
-					delta_real.append(l[2])
-					delta_ran.append(l[3])
-					
-				now_real=str(now_real).strip('[]')
-				now_ran=str(now_ran).strip('[]')
-				times=str(times).strip(', ')
-				macs=str(macs).strip(', ')
-				delta_real=str(delta_real).strip('[]')
-				delta_ran=str(delta_ran).strip('[]')
-				userdata = {'Id':snifferId, 'now_reali':now_real, 'now_random':now_ran, 'time':times, 'macaddr':macs, 'delta_reali':delta_real, 'delta_random':delta_ran, 'numReali':now_reali, 'numRandom':now_random}
-				resp = requests.post('http://sniffer5terre.altervista.org/php/gestione_dativ3-5.php', params=userdata)
-				print("Inviato")
-				del sql_struct[:]
-				del now_real
-				del now_ran
-				del times
-				del macs
-				del delta_real
-				del delta_ran
+				if len(sql_struct)!=0:
+					print "=========================================="
+					print "ho trovato qualcosa: lunghezza",len(sql_struct)
+					print "Mac reali:",now_reali," Mac random: ",now_random
+					for l in sql_struct:	
+						#print l
+						now_real.append(l[4])
+						now_ran.append(l[5])
+						times = times + str(l[6]) + ", "
+						macs = macs + l[1] + ", "
+						delta_real.append(l[2])
+						delta_ran.append(l[3])
+
+					now_real=str(now_real).strip('[]')
+					now_ran=str(now_ran).strip('[]')
+					times=str(times).strip(', ')
+					macs=str(macs).strip(', ')
+					delta_real=str(delta_real).strip('[]')
+					delta_ran=str(delta_ran).strip('[]')
+
+					userdata = {'Id':snifferId, 'now_reali':now_real, 'now_random':now_ran, 'time':times, 'macaddr':macs, 'delta_reali':delta_real, 'delta_random':delta_ran, 'numReali':now_reali, 'numRandom':now_random}
+					resp = requests.post('http://sniffer5terre.altervista.org/php/gestione_dativ3-5.php', params=userdata)
+					print("Inviato")
+					del sql_struct[:]
+					del now_real
+					del now_ran
+					del times
+					del macs
+					del delta_real
+					del delta_ran
+
+				else:
+					print "non ho sniffato niente"
+					userdata = {'Id':snifferId,'numReali':now_reali,'numRandom':now_random}
+					resp = requests.post('http://sniffer5terre.altervista.org/php/gestione_dati.php', params=userdata)
+					print("Inviato")
+				
+
 				#print "DIMENSIONE SQLSTRUCT POST ELIMINAZIONE: " , asizeof(sql_struct)
 					
 			except requests.exceptions.RequestException as e:

@@ -59,7 +59,7 @@
             var Monterosso = ol.proj.transform([9.654885,44.145503], 'EPSG:4326', 'EPSG:3857');
             var Vernazza = ol.proj.transform([9.683089,44.134839], 'EPSG:4326', 'EPSG:3857');
             var Corniglia = ol.proj.transform([9.708366,44.119807], 'EPSG:4326', 'EPSG:3857');
-            var Manarola = ol.proj.transform([9.728068,44.106414], 'EPSG:4326', 'EPSG:3857');
+            var Manarola = ol.proj.transform([9.729187,44.105293], 'EPSG:4326', 'EPSG:3857');
             var Riomaggiore = ol.proj.transform([9.738631,44.099424], 'EPSG:4326', 'EPSG:3857');
             var CinqueTerre = ol.proj.transform([9.699685,44.116034], 'EPSG:4326', 'EPSG:3857');
             
@@ -242,7 +242,7 @@
 									var newZoom = map.getView().getZoom();
 									var greenStyle = new ol.style.Style({
 										image: new ol.style.Circle({
-											radius: Math.pow(33,newZoom/5)/15000,
+											radius: Math.pow(50,newZoom/5.5)/8000,
 											fill: new ol.style.Fill({color: 'rgba(0,255,0,0.5)'}),
 											stroke: new ol.style.Stroke({
 												color: 'green', width: 1
@@ -251,7 +251,7 @@
 									});
 									var yellowStyle = new ol.style.Style({
 										image: new ol.style.Circle({
-											radius: Math.pow(33,newZoom/5)/15000,
+											radius: Math.pow(50,newZoom/5.5)/8000,
 											fill: new ol.style.Fill({color: 'rgba(255,255,0,0.5)'}),
 											stroke: new ol.style.Stroke({
 												color: 'yellow', width: 1
@@ -260,7 +260,7 @@
 									});
 									var redStyle = new ol.style.Style({
 										image: new ol.style.Circle({
-											radius: Math.pow(33,newZoom/5)/15000,
+											radius: Math.pow(50,newZoom/5.5)/8000,
 											fill: new ol.style.Fill({color: 'rgba(255,0,0,0.5)'}),
 											stroke: new ol.style.Stroke({
 												color: 'red', width: 1
@@ -446,7 +446,7 @@
 
 								var greenStyle = new ol.style.Style({
 									image: new ol.style.Circle({
-										radius: Math.pow(33,newZoom/5)/15000,
+										radius: Math.pow(50,newZoom/5.5)/8000,
 										fill: new ol.style.Fill({color: 'rgba(0,255,0,0.5)'}),
 										stroke: new ol.style.Stroke({
 												color: 'green', width: 1
@@ -455,7 +455,7 @@
 								});
 								var yellowStyle = new ol.style.Style({
 									image: new ol.style.Circle({
-										radius: Math.pow(33,newZoom/5)/15000,
+										radius: Math.pow(50,newZoom/5.5)/8000,
 										fill: new ol.style.Fill({color: 'rgba(255,255,0,0.5)'}),
 										stroke: new ol.style.Stroke({
 												color: 'yellow', width: 1
@@ -464,7 +464,7 @@
 								});
 								var redStyle = new ol.style.Style({
 									image: new ol.style.Circle({
-										radius: Math.pow(33,newZoom/5)/15000,
+										radius: Math.pow(50,newZoom/5.5)/8000,
 										fill: new ol.style.Fill({color: 'rgba(255,0,0,0.5)'}),
 										stroke: new ol.style.Stroke({
 												color: 'red', width: 1

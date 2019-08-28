@@ -10,4 +10,4 @@
     } 
     $result = mysqli_query($conn, "INSERT INTO `log`(`Id`, `Mac_reali`, `Mac_random`) VALUES ('".$id."','".$reali."','".$random."')"); 
     echo mysqli_affected_rows($conn); 
-?>
+?>

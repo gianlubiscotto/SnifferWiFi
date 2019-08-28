@@ -1,22 +1,22 @@
 <?php 
+$file = 'log.txt';
+file_put_contents($file, "ciao");
+
 $macaddr = htmlspecialchars($_GET["macaddr"]);	
 $delta_reali = htmlspecialchars($_GET["delta_reali"]); 
 $delta_random = htmlspecialchars($_GET["delta_random"]); 
 $now_reali = htmlspecialchars($_GET["now_reali"]); 
 $now_random = htmlspecialchars($_GET["now_random"]);
 $time = htmlspecialchars($_GET["time"]);	
-echo "delta_random stringa= ".$delta_random."<br>";
 $macaddr = explode(",",$macaddr);
 $delta_reali = explode(",",$delta_reali);
 $delta_random = explode(",",$delta_random);
 $now_reali = explode(",",$now_reali);
 $now_random = explode(",",$now_random);
 $time = explode(",",$time);
+
 echo "delta_random array= ".$delta_random."<br>";
-for($j=0;$j<count($delta_random);$j++){
-	echo $delta_random[$j];
-}
-echo "<br>";
+
 $id = htmlspecialchars($_GET["Id"]);
 
 $reali = htmlspecialchars($_GET["numReali"]); 
@@ -33,13 +33,14 @@ for($i=0;$i<count($macaddr);$i++){
 	$t=$time[$i];
 	$dr=(int)$delta_reali[$i];
 	$dran=(int)$delta_random[$i];
-	echo "delta reali:".$dr." delta random:".$dran."<br>";
 	$m=$macaddr[$i];
-	$result = mysqli_query($conn, "INSERT INTO `logv3`(`Id`, `Mac_reali`, `Mac_random` , `Timestamp` , `delta_reali` , `delta_random` , `macaddr`) VALUES ('".$id."','".$nr."','".$nran."','".$t."','".$dr."','".$dran."','".$m."')") or die(mysqli_error($conn)); 
+	$result = mysqli_query($conn, "INSERT INTO `logv3`(`Id`, `Mac_reali`, `Mac_random` , `Timestamp` , `delta_reali` , `delta_random` , `macaddr`) VALUES ('".$id."','".$nr."','".$nran."','".$t."','".$dr."','".$dran."','".$m."')") or die(mysqli_error($conn));
+	
 	echo mysqli_affected_rows($conn); 
 }
 	
 $result = mysqli_query($conn, "INSERT INTO `log`(`Id`, `Mac_reali`, `Mac_random`) VALUES ('".$id."','".$reali."','".$random."')"); 
 echo mysqli_affected_rows($conn); 
+
 ?>
 
