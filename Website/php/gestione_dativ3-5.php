@@ -1,6 +1,4 @@
 <?php 
-$file = 'log.txt';
-file_put_contents($file, "ciao");
 
 $macaddr = htmlspecialchars($_GET["macaddr"]);	
 $delta_reali = htmlspecialchars($_GET["delta_reali"]); 
