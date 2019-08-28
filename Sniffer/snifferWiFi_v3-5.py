@@ -88,7 +88,11 @@ def Aggrega( mac1 , macaddr1 , mac2 , macaddr2 ):
 		mac1['canc'] = True
 		for x in mac2['log']:
 			mac1['log'].append(x)
+		#for y in mac2['compared']:
+		#	mac1['compared'].append(y)		
 		mac2['log']= mac1['log']
+		
+		mac2['compared'] = list(set(mac2['compared']) | set(mac1['compared']))
 		mac2['pastMac'] = list(set(mac2['pastMac']) | set(mac1['pastMac']) | set ([macaddr1]) )
 	else:
 		#print "cancello il secondo"
@@ -96,6 +100,7 @@ def Aggrega( mac1 , macaddr1 , mac2 , macaddr2 ):
 		for x in mac1['log']:
 			mac2['log'].append(x)
 		mac1['log']= mac2['log']
+		mac1['compared'] = list(set(mac2['compared']) | set(mac1['compared']))
 		mac1['pastMac'] = list(set(mac2['pastMac']) | set(mac1['pastMac']) | set ([macaddr2])  )
 
 #controlla se i due mac siano da aggregare
@@ -334,9 +339,7 @@ def checkCancellazione():
 	global lock
 	global totAggrJ
 	global SigList
-	
-	#print "DIMENSIONE DIZIONARIO PRE ELIMINAZIONE: " , asizeof(SigList)
-	
+		
 	#cancello i vecchi mac
 	for k in SigList.keys():
 		for q in SigList[k].keys():
@@ -354,15 +357,13 @@ def checkCancellazione():
 		for q in SigList[k].keys():
 			if (SigList[k][q]['RandomMac'])== True and (SigList[k][q]['canc']) == False :
 				for w in SigList[k].keys():
-					if (SigList[k][w]['RandomMac'])== True and w != q  and (SigList[k][w]['canc']) == False :
+					if (SigList[k][w]['RandomMac'])== True and w != q  and (SigList[k][w]['canc']) == False and q not in SigList[k][w]['compared'] :
 						#print "comparo",q, w
+						SigList[k][q]['compared'].append(w)
+						SigList[k][w]['compared'].append(q)
 						Compara(SigList[k][q] , q , SigList[k][w] , w);
-
-	
-
-	#cancello mac aggregati e o vecchi
-	
-	#print "DIMENSIONE DIZIONARIO POST ELIMINAZIONE: " , asizeof(SigList)
+						if SigList[k][q]['canc']==True:
+							break
 
 
 def checkWrongSignature(packet,key):
@@ -472,14 +473,14 @@ def PacketHandler(pkt) :
 					if pkt.info != '':
 						ssids_list.append(pkt.info)
 					#assegno in corrispondenza di questo nuovo macaddr2 il set di informazioni
-					SigList[key][pkt.addr2] = { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt) , 'VendorApple' : isVendorApple(pkt) , 'ssids' : ssids_list , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)] , 'uuid' : getUuid(pkt) , 'myid': putMyId(pkt) , 'canc' : False , 'pastMac' : [] }	
+					SigList[key][pkt.addr2] = { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt) , 'VendorApple' : isVendorApple(pkt) , 'ssids' : ssids_list , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)] , 'uuid' : getUuid(pkt) , 'myid': putMyId(pkt) , 'canc' : False , 'pastMac' : [], 'compared' : [] }	
 				
 			else:	#ho scoperto una nuova signature
 				ssids_list = []
 				if pkt.info != '':
 					ssids_list.append(pkt.info)
 				#assegno in corrispondenza di questa nuova signature,il macaddr2 e il set di prima
-				SigList[key] = { pkt.addr2 : { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt)  , 'ssids' : ssids_list , 'VendorApple' : isVendorApple(pkt) , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)]  , 'uuid' : getUuid(pkt)  , 'myid': putMyId(pkt), 'canc' : False  , 'pastMac' : []  } }
+				SigList[key] = { pkt.addr2 : { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt)  , 'ssids' : ssids_list , 'VendorApple' : isVendorApple(pkt) , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)]  , 'uuid' : getUuid(pkt)  , 'myid': putMyId(pkt), 'canc' : False  , 'pastMac' : [], 'compared' : []  } }
 				
 				#controllo se la signature di un reale/random è stata trasmessa in modo errato (quella errata è più lunga/corta)
 				checkWrongSignature(pkt,key)
