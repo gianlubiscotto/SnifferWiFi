@@ -86,6 +86,7 @@ def Aggrega( mac1 , macaddr1 , mac2 , macaddr2 ):
 	if mac1['myid'] < mac2['myid']: #(mac1['log'][-1]['time'] < mac2['log'][-1]['time']):
 		#print "cancello il primo"
 		mac1['canc'] = True
+		mac1['aggregated'] = True
 		for x in mac2['log']:
 			mac1['log'].append(x)
 		#for y in mac2['compared']:
@@ -97,6 +98,7 @@ def Aggrega( mac1 , macaddr1 , mac2 , macaddr2 ):
 	else:
 		#print "cancello il secondo"
 		mac2['canc'] = True
+		mac2['aggregated'] = True
 		for x in mac1['log']:
 			mac2['log'].append(x)
 		mac1['log']= mac2['log']
@@ -420,7 +422,7 @@ def checkWrongSignature(packet,key):
 								SigList.pop(k,None)
 	lock.release()
 		
-def updateDb(address,now_reali,now_random,delta_reali,delta_random):
+def updateDb(address,aggregated,delta_reali,delta_random):
 	global sql_struct
 	global snifferId
 	timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -429,8 +431,7 @@ def updateDb(address,now_reali,now_random,delta_reali,delta_random):
 	sublist.append(address)
 	sublist.append(delta_reali)
 	sublist.append(delta_random)
-	sublist.append(now_reali)
-	sublist.append(now_random)
+	sublist.append(aggregated)
 	sublist.append(timestamp)
 	sql_struct.append(sublist)
 
@@ -520,10 +521,11 @@ def PacketHandler(pkt) :
 						else:
 							now_reali = now_reali - 1
 						mac=q
+						aggregated = SigList[k][q]['aggregated']
 						SigList[k].pop(q,None)
 						delta_reali = now_reali - old_reali
 						delta_random = now_random - old_random
-						updateDb(mac,now_reali,now_random,delta_reali,delta_random)
+						updateDb(mac,aggregated,delta_reali,delta_random)
 						if not SigList[k]:
 							#del SigList[k]
 							SigList[k].clear()
@@ -557,10 +559,11 @@ class ThreadInvio():
 				print "INVIO IN CORSO..."
 				#print "DIMENSIONE SQLSTRUCT PRE ELIMINAZIONE: " , asizeof(sql_struct)
 				#connessione al db per registrare i dati
-				now_real = []
-				now_ran = []
+				#now_real = []
+				#now_ran = []
 				delta_real = []
 				delta_ran = []
+				aggregates = ""
 				times = ""
 				macs = ""
 				
@@ -570,21 +573,23 @@ class ThreadInvio():
 					print "Mac reali:",now_reali," Mac random: ",now_random
 					for l in sql_struct:	
 						#print l
-						now_real.append(l[4])
-						now_ran.append(l[5])
-						times = times + str(l[6]) + ", "
+						#now_real.append(l[4])
+						#now_ran.append(l[5])
+						times = times + str(l[5]) + ", "
 						macs = macs + l[1] + ", "
 						delta_real.append(l[2])
 						delta_ran.append(l[3])
+						aggregates = aggregates + str(l[4]) + ", "
 
-					now_real=str(now_real).strip('[]')
-					now_ran=str(now_ran).strip('[]')
+					#now_real=str(now_real).strip('[]')
+					#now_ran=str(now_ran).strip('[]')
+					aggregates=str(aggregates).strip(', ')
 					times=str(times).strip(', ')
 					macs=str(macs).strip(', ')
 					delta_real=str(delta_real).strip('[]')
 					delta_ran=str(delta_ran).strip('[]')
 
-					userdata = {'Id':snifferId, 'now_reali':now_real, 'now_random':now_ran, 'time':times, 'macaddr':macs, 'delta_reali':delta_real, 'delta_random':delta_ran, 'numReali':now_reali, 'numRandom':now_random}
+					userdata = {'Id':snifferId, 'aggregates':aggregates, 'time':times, 'macaddr':macs, 'delta_reali':delta_real, 'delta_random':delta_ran, 'numReali':now_reali, 'numRandom':now_random}
 					resp = requests.post('http://sniffer5terre.altervista.org/php/gestione_dativ3-5.php', params=userdata)
 					print("Inviato")
 					del sql_struct[:]
