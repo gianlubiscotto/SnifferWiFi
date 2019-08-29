@@ -448,7 +448,7 @@ def PacketHandler(pkt) :
 
 	if pkt.haslayer(Dot11) :
   
-		#print "RICEZIONE..."
+		print "RICEZIONE..."
     #beacon frame (quello che manda l'ap periodicamente per segnalare la sua presenza)
 		if pkt.type == 0 and pkt.subtype == 8 :   
 			ApList[pkt.addr2]= pkt.info
@@ -457,7 +457,7 @@ def PacketHandler(pkt) :
     #probe request e controllo che la potenza sia > -99 => -(256-ord(pkt.notdecoded[-4:-3])=potenza=>RSSI)
 		if pkt.type == 0 and pkt.subtype == 4 and -(256-ord(pkt.notdecoded[-4:-3])) > -99 :
 			key = getSignature(pkt)
-			#print "Trovato ", pkt.addr2
+			print "Trovato ", pkt.addr2
 			if (SigList.has_key(key)): #se la signature derivata dal modello è presente nella mia lista
 				#print ("Signature già in memoria")
 				if (SigList[key].has_key(pkt.addr2)):	#e ha anche associato il macaddr2 appena rilevato
@@ -510,29 +510,29 @@ def PacketHandler(pkt) :
 			#print ""
 	
 		
-			checkCancellazione()
-			lock.acquire()
-			for k in SigList.keys() :
-				for q in SigList[k].keys():
-					if (SigList[k][q]['canc'])== True:
-						#print "cancello perchè aggregato o vecchio",q
-						if SigList[k][q]['RandomMac']:
-							now_random = now_random - 1
-						else:
-							now_reali = now_reali - 1
-						mac=q
-						aggregated = SigList[k][q]['aggregated']
-						SigList[k].pop(q,None)
-						delta_reali = now_reali - old_reali
-						delta_random = now_random - old_random
-						updateDb(mac,aggregated,delta_reali,delta_random)
-						if not SigList[k]:
-							#del SigList[k]
-							SigList[k].clear()
-							SigList.pop(k,None)
-						old_reali = now_reali
-						old_random = now_random
-			lock.release()
+		checkCancellazione()
+		lock.acquire()
+		for k in SigList.keys() :
+			for q in SigList[k].keys():
+				if (SigList[k][q]['canc'])== True:
+					print "cancello perchè aggregato o vecchio",q
+					if SigList[k][q]['RandomMac']:
+						now_random = now_random - 1
+					else:
+						now_reali = now_reali - 1
+					mac=q
+					aggregated = SigList[k][q]['aggregated']
+					SigList[k].pop(q,None)
+					delta_reali = now_reali - old_reali
+					delta_random = now_random - old_random
+					updateDb(mac,aggregated,delta_reali,delta_random)
+					if not SigList[k]:
+						#del SigList[k]
+						SigList[k].clear()
+						SigList.pop(k,None)
+					old_reali = now_reali
+					old_random = now_random
+		lock.release()
 
 class ThreadInvio():
 	def __init__(self):
@@ -551,8 +551,8 @@ class ThreadInvio():
 			dayhour = datetime.datetime.now().strftime('%H:%M')
 			lower = datetime.time(0,0).strftime('%H:%M')
 			upper = datetime.time(6,0).strftime('%H:%M')
-			if dayhour > lower and dayhour < upper:
-				print dayhour
+			#if dayhour > lower and dayhour < upper:
+				#print dayhour
 			time.sleep(10)
 			lock.acquire()
 			try:
