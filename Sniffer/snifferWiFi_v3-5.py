@@ -82,7 +82,7 @@ def SsidMatch( mac1 , mac2):
 
 #cancella il mac più vecchio e estende il log di quello più nuovo  
 def Aggrega( mac1 , macaddr1 , mac2 , macaddr2 ):
-	#print "aggrego"
+	print "aggrego"
 	if mac1['myid'] < mac2['myid']: #(mac1['log'][-1]['time'] < mac2['log'][-1]['time']):
 		#print "cancello il primo"
 		mac1['canc'] = True
@@ -593,8 +593,9 @@ class ThreadInvio():
 					resp = requests.post('http://sniffer5terre.altervista.org/php/gestione_dativ3-5.php', params=userdata)
 					print("Inviato")
 					del sql_struct[:]
-					del now_real
-					del now_ran
+					#del now_real
+					#del now_ran
+					del aggregates
 					del times
 					del macs
 					del delta_real
