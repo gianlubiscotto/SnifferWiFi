@@ -473,14 +473,14 @@ def PacketHandler(pkt) :
 					if pkt.info != '':
 						ssids_list.append(pkt.info)
 					#assegno in corrispondenza di questo nuovo macaddr2 il set di informazioni
-					SigList[key][pkt.addr2] = { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt) , 'VendorApple' : isVendorApple(pkt) , 'ssids' : ssids_list , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)] , 'uuid' : getUuid(pkt) , 'myid': putMyId(pkt) , 'canc' : False , 'pastMac' : [], 'compared' : [] }	
+					SigList[key][pkt.addr2] = { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt) , 'VendorApple' : isVendorApple(pkt) , 'ssids' : ssids_list , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)] , 'uuid' : getUuid(pkt) , 'myid': putMyId(pkt) , 'canc' : False , 'pastMac' : [], 'compared' : [] , 'aggregated' : False }	
 				
 			else:	#ho scoperto una nuova signature
 				ssids_list = []
 				if pkt.info != '':
 					ssids_list.append(pkt.info)
 				#assegno in corrispondenza di questa nuova signature,il macaddr2 e il set di prima
-				SigList[key] = { pkt.addr2 : { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt)  , 'ssids' : ssids_list , 'VendorApple' : isVendorApple(pkt) , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)]  , 'uuid' : getUuid(pkt)  , 'myid': putMyId(pkt), 'canc' : False  , 'pastMac' : [], 'compared' : []  } }
+				SigList[key] = { pkt.addr2 : { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt)  , 'ssids' : ssids_list , 'VendorApple' : isVendorApple(pkt) , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)]  , 'uuid' : getUuid(pkt)  , 'myid': putMyId(pkt), 'canc' : False  , 'pastMac' : [], 'compared' : [] , 'aggregated' : False  } }
 				
 				#controllo se la signature di un reale/random è stata trasmessa in modo errato (quella errata è più lunga/corta)
 				checkWrongSignature(pkt,key)
