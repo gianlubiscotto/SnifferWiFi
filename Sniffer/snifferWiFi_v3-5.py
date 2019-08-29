@@ -86,7 +86,7 @@ def Aggrega( mac1 , macaddr1 , mac2 , macaddr2 ):
 	if mac1['myid'] < mac2['myid']: #(mac1['log'][-1]['time'] < mac2['log'][-1]['time']):
 		#print "cancello il primo"
 		mac1['canc'] = True
-		mac1['aggregated'] = True
+		mac1['aggregated'] = 1
 		for x in mac2['log']:
 			mac1['log'].append(x)
 		#for y in mac2['compared']:
@@ -98,7 +98,7 @@ def Aggrega( mac1 , macaddr1 , mac2 , macaddr2 ):
 	else:
 		#print "cancello il secondo"
 		mac2['canc'] = True
-		mac2['aggregated'] = True
+		mac2['aggregated'] = 1
 		for x in mac1['log']:
 			mac2['log'].append(x)
 		mac1['log']= mac2['log']
@@ -474,14 +474,14 @@ def PacketHandler(pkt) :
 					if pkt.info != '':
 						ssids_list.append(pkt.info)
 					#assegno in corrispondenza di questo nuovo macaddr2 il set di informazioni
-					SigList[key][pkt.addr2] = { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt) , 'VendorApple' : isVendorApple(pkt) , 'ssids' : ssids_list , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)] , 'uuid' : getUuid(pkt) , 'myid': putMyId(pkt) , 'canc' : False , 'pastMac' : [], 'compared' : [] , 'aggregated' : False }	
+					SigList[key][pkt.addr2] = { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt) , 'VendorApple' : isVendorApple(pkt) , 'ssids' : ssids_list , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)] , 'uuid' : getUuid(pkt) , 'myid': putMyId(pkt) , 'canc' : False , 'pastMac' : [], 'compared' : [] , 'aggregated' : 0 }	
 				
 			else:	#ho scoperto una nuova signature
 				ssids_list = []
 				if pkt.info != '':
 					ssids_list.append(pkt.info)
 				#assegno in corrispondenza di questa nuova signature,il macaddr2 e il set di prima
-				SigList[key] = { pkt.addr2 : { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt)  , 'ssids' : ssids_list , 'VendorApple' : isVendorApple(pkt) , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)]  , 'uuid' : getUuid(pkt)  , 'myid': putMyId(pkt), 'canc' : False  , 'pastMac' : [], 'compared' : [] , 'aggregated' : False  } }
+				SigList[key] = { pkt.addr2 : { 'RandomMac' :  isRandomMac(pkt) , 'RandomAndroid' : isRandomAndroid(pkt)  , 'ssids' : ssids_list , 'VendorApple' : isVendorApple(pkt) , 'ouis' : getVendorStrList(pkt) , 'log' : [getLog(pkt)]  , 'uuid' : getUuid(pkt)  , 'myid': putMyId(pkt), 'canc' : False  , 'pastMac' : [], 'compared' : [] , 'aggregated' : 0  } }
 				
 				#controllo se la signature di un reale/random è stata trasmessa in modo errato (quella errata è più lunga/corta)
 				checkWrongSignature(pkt,key)
@@ -563,7 +563,7 @@ class ThreadInvio():
 				#now_ran = []
 				delta_real = []
 				delta_ran = []
-				aggregates = ""
+				aggregates = []
 				times = ""
 				macs = ""
 				
@@ -579,11 +579,11 @@ class ThreadInvio():
 						macs = macs + l[1] + ", "
 						delta_real.append(l[2])
 						delta_ran.append(l[3])
-						aggregates = aggregates + str(l[4]) + ", "
+						aggregates.append(l[4])
 
 					#now_real=str(now_real).strip('[]')
 					#now_ran=str(now_ran).strip('[]')
-					aggregates=str(aggregates).strip(', ')
+					aggregates=str(aggregates).strip('[]')
 					times=str(times).strip(', ')
 					macs=str(macs).strip(', ')
 					delta_real=str(delta_real).strip('[]')
