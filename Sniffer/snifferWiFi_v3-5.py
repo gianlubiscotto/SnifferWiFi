@@ -493,7 +493,7 @@ def PacketHandler(pkt) :
 			delta_reali = now_reali - old_reali
 			delta_random = now_random - old_random
 			if delta_reali > 0 or delta_random > 0:
-				updateDb(pkt.addr2,now_reali,now_random,delta_reali,delta_random)
+				updateDb(pkt.addr2,False,delta_reali,delta_random)
 			old_reali = now_reali
 			old_random = now_random
 			lock.release()
