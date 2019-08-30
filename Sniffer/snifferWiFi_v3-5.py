@@ -448,7 +448,6 @@ def PacketHandler(pkt) :
 
 	if pkt.haslayer(Dot11) :
   
-		print "RICEZIONE..."
     #beacon frame (quello che manda l'ap periodicamente per segnalare la sua presenza)
 		if pkt.type == 0 and pkt.subtype == 8 :   
 			ApList[pkt.addr2]= pkt.info
@@ -509,30 +508,65 @@ def PacketHandler(pkt) :
 			#print "=========================================="
 			#print ""
 	
-		
-		checkCancellazione()
-		lock.acquire()
-		for k in SigList.keys() :
-			for q in SigList[k].keys():
-				if (SigList[k][q]['canc'])== True:
-					print "cancello perchè aggregato o vecchio",q
-					if SigList[k][q]['RandomMac']:
-						now_random = now_random - 1
-					else:
-						now_reali = now_reali - 1
-					mac=q
-					aggregated = SigList[k][q]['aggregated']
-					SigList[k].pop(q,None)
-					delta_reali = now_reali - old_reali
-					delta_random = now_random - old_random
-					updateDb(mac,aggregated,delta_reali,delta_random)
-					if not SigList[k]:
-						#del SigList[k]
-						SigList[k].clear()
-						SigList.pop(k,None)
-					old_reali = now_reali
-					old_random = now_random
-		lock.release()
+			'''
+			dayhour = datetime.datetime.now().strftime('%H:%M')
+			lower = datetime.time(9,0).strftime('%H:%M')
+			upper = datetime.time(22,0).strftime('%H:%M')
+			if dayhour >= lower and dayhour < upper:
+			'''
+			checkCancellazione()
+			lock.acquire()
+			for k in SigList.keys() :
+				for q in SigList[k].keys():
+					if (SigList[k][q]['canc'])== True:
+						print "cancello perchè aggregato o vecchio",q
+						if SigList[k][q]['RandomMac']:
+							now_random = now_random - 1
+						else:
+							now_reali = now_reali - 1
+						mac=q
+						aggregated = SigList[k][q]['aggregated']
+						SigList[k].pop(q,None)
+						delta_reali = now_reali - old_reali
+						delta_random = now_random - old_random
+						updateDb(mac,aggregated,delta_reali,delta_random)
+						if not SigList[k]:
+							#del SigList[k]
+							SigList[k].clear()
+							SigList.pop(k,None)
+						old_reali = now_reali
+						old_random = now_random
+			lock.release()
+		'''		
+		dayhour = datetime.datetime.now().strftime('%H:%M')
+		lower = datetime.time(22,0).strftime('%H:%M')
+		upper = datetime.time(9,0).strftime('%H:%M')
+		if dayhour >= lower and dayhour < upper:
+			print "cancellazione veloce"
+			checkCancellazione()
+			lock.acquire()
+			for k in SigList.keys() :
+				for q in SigList[k].keys():
+					if (SigList[k][q]['canc'])== True:
+						print "cancello perchè aggregato o vecchio",q
+						if SigList[k][q]['RandomMac']:
+							now_random = now_random - 1
+						else:
+							now_reali = now_reali - 1
+						mac=q
+						aggregated = SigList[k][q]['aggregated']
+						SigList[k].pop(q,None)
+						delta_reali = now_reali - old_reali
+						delta_random = now_random - old_random
+						updateDb(mac,aggregated,delta_reali,delta_random)
+						if not SigList[k]:
+							#del SigList[k]
+							SigList[k].clear()
+							SigList.pop(k,None)
+						old_reali = now_reali
+						old_random = now_random
+			lock.release()
+		'''
 
 class ThreadInvio():
 	def __init__(self):
