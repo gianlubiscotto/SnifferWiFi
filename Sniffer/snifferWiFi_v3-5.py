@@ -346,7 +346,7 @@ def checkCancellazione():
 	for k in SigList.keys():
 		for q in SigList[k].keys():
 			if SigList[k][q]['RandomMac']==True:
-				if abs(SigList[k][q]['log'][-1]['time'] - time.time()) > 20:
+				if abs(SigList[k][q]['log'][-1]['time'] - time.time()) > 15:
 					SigList[k][q]['canc'] = True
 					#print "cancello random per vecchiaia",q
 			else:
