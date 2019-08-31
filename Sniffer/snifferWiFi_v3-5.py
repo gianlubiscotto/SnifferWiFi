@@ -568,7 +568,7 @@ def PacketHandler(pkt) :
 						old_reali = now_reali
 						old_random = now_random
 			lock.release()
-		'''
+		
 
 class ThreadInvio():
 	def __init__(self):
@@ -584,12 +584,13 @@ class ThreadInvio():
 		global now_random
 		global snifferId
 		while True:
+			sleep = 10
 			dayhour = datetime.datetime.now().strftime('%H:%M')
 			lower = datetime.time(0,0).strftime('%H:%M')
 			upper = datetime.time(6,0).strftime('%H:%M')
-			#if dayhour > lower and dayhour < upper:
-				#print dayhour
-			time.sleep(10)
+			if dayhour > lower and dayhour < upper:
+				sleep = 60
+			time.sleep(sleep)
 			lock.acquire()
 			try:
 				print "INVIO IN CORSO..."
