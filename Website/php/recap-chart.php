@@ -23,7 +23,14 @@
 		
 		$startpoint = date('Y-m-d H:i:s',$start);
 		$endpoint = date('Y-m-d H:i:s',$end);
-		
+		$temp;
+
+		if($startpoint > $endpoint){
+			$temp = $startpoint;
+			$startpoint = $endpoint;
+			$endpoint = $temp;
+		}
+
 		$arrLabelValueData = array();
 		$query="SELECT * FROM log WHERE Id = '$id' AND Timestamp between '$startpoint' and '$endpoint' ORDER BY log.Timestamp ASC";
     $res = mysqli_query($conn, $query) or die(mysqli_error($conn));
