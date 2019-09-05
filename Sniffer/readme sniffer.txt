@@ -32,9 +32,7 @@ usr-password raspberry: pi - raspberry
 usr-password raspberry raspi.img: pi - raspberrypi
 
 collegamento reverse ssh tunnel con remot3.it:
-sudo apt update
-sudo apt-get install weavedconnectd
-sudo weavedinstaller
+sudo apt update && sudo apt install connectd && sudo connectd_installer
 -accesso con credenziali remot3.it
 -nome del dispositivo
 -abilitare servizio ssh
