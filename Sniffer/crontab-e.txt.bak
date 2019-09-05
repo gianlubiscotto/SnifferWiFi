@@ -1,0 +1,20 @@
+@reboot sudo sh monitor-routine.sh
+#ogni 14 minuti di ogni ora scrittura % ram utilizzata (minuto 14,28,42,56)
+*/14 * * * * sh memory-script.sh
+
+#script eseguito ogni 30 minuti a partire dalle 12 fino alle 18
+0 * * * * sudo timeout 3580 python snifferWiFi_v3-5.py
+#dalle 18 alle 23 ogni ora
+#0 18-22 * * * sudo timeout 3580 python snifferWiFi_v3-5.py
+#dalle 23 alle 03
+#0 23 * * * sudo timeout 14380 python snifferWiFi_v3-5.py
+#reboot alle 3 di notte
+#0 3 * * * sudo reboot
+#dalle 03:05 alle 06
+#5 3 * * * sudo timeout 10480 python snifferWiFi_v3-5.py
+#dalle 06 alle 08
+#0 6 * * * sudo timeout 7180 python snifferWiFi_v3-5.py
+#dalle 08 alle 10
+#0 8 * * * sudo timeout 7180 python snifferWiFi_v3-5.py
+#dalle 10 alle 11 e dalle 11 alle 12
+#0 10-11 * * * sudo timeout 3580 python snifferWiFi_v3-5.py

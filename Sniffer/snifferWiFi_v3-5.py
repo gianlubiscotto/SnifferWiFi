@@ -19,11 +19,13 @@ import datetime
 import time
 from scapy.layers.dot11 import Dot11, Dot11Elt
 
+'''
 x=netifaces.interfaces()
 iface=""
 for interface in x:
 	if(len(interface)>len(iface)):
 		iface=interface
+'''
 
 myId = 1
 snifferId = 1
@@ -657,7 +659,7 @@ class ThreadSniffing():
 	def terminate(self):
 		self._running = False
 	def run(self):
-		sniff(iface=iface, prn = PacketHandler )
+		sniff(iface="wlan0mon", prn = PacketHandler )
 
 
 '''
