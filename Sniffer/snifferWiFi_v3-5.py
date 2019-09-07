@@ -28,7 +28,7 @@ for interface in x:
 '''
 
 myId = 1
-snifferId = 1
+snifferId = 1 #Manarola
 totAggrJ = {'MacReali' : 0 , 'MacRandom' : 0}
 sql_struct = []
 lock = Lock()
@@ -641,7 +641,7 @@ class ThreadInvio():
 					del delta_ran
 
 				else:
-					print "non ho sniffato niente"
+					print "non è cambiato niente"
 					userdata = {'Id':snifferId,'numReali':now_reali,'numRandom':now_random}
 					resp = requests.post('http://sniffer5terre.altervista.org/php/gestione_dati.php', params=userdata)
 					print("Inviato")
