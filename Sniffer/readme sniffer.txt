@@ -39,8 +39,9 @@ sudo apt update && sudo apt install connectd && sudo connectd_installer
 -da remot3.it cliccare sul dispositivo cliccare sul servizio ssh appena creato e copiare indirizzo-porta in un tool ssh
 -per cancellare: sudo dpkg --purge weavedconnectd/connectd
 
-
-
+blacklist wlan0
+monitor routine v2
+memory log v2
 
 note:
 nello script nel chiamare la funzione sniff, al parametro iface viene passata l'interfaccia con il nome più lungo (visto che quella in monitor mode si chiamerà "wlan?mon"
