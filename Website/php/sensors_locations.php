@@ -13,7 +13,10 @@
     $hour_ago = date('Y-m-d H:i:s', strtotime($now) - 1 * 3600);
     
     $response="[";
-    $query="SELECT * FROM (SELECT * FROM Sensors_colocation as S JOIN log as L on S.Sensor_id = L.Id ORDER BY S.Sensor_id ASC, L.Timestamp DESC) AS temp GROUP BY temp.Sensor_id";
+    #$query="SELECT * FROM (SELECT * FROM Sensors_colocation as S JOIN log as L on S.Sensor_id = L.Id ORDER BY S.Sensor_id ASC, L.Timestamp DESC) AS temp GROUP BY temp.Sensor_id";
+		$query="SELECT Id, Sensor_id, Mac_reali, Mac_random, Timestamp, Sensor_longitude, Sensor_latitude, Paese, Pseudonimo, limit1,limit2
+FROM (SELECT * FROM log AS L JOIN Sensors_colocation AS S ON L.Id = S.Sensor_id) AS temp 
+WHERE Timestamp = (SELECT max(Timestamp) from (SELECT * FROM log AS L JOIN Sensors_colocation AS S ON L.Id = S.Sensor_id) as f WHERE f.Id = temp.Id)"
     $res = mysqli_query($conn, $query) or die(mysqli_error($conn));
     if(mysqli_num_rows($res)> 0){
         while($row = mysqli_fetch_assoc($res)){
