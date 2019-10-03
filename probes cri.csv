@@ -1,0 +1,73 @@
+"Time","Source","Destination","Protocol","Length","Info"
+"0.000000000","1e:69:da:39:e9:7a","Broadcast","802.11","176","Probe Request, SN=912
+"0.003260863","1e:69:da:39:e9:7a","Broadcast","802.11","176","Probe Request, SN=913 
+"3.229036747","ae:ef:ff:f5:f4:b6","Broadcast","802.11","176","Probe Request, SN=949 
+"3.249793790","ae:ef:ff:f5:f4:b6","Broadcast","802.11","176","Probe Request, SN=950 
+"17.124327398","d6:5c:53:c5:ce:c8","Broadcast","802.11","176","Probe Request, SN=986
+"17.144741222","d6:5c:53:c5:ce:c8","Broadcast","802.11","176","Probe Request, SN=987
+"20.062601984","06:2b:1d:2d:d8:f9","Broadcast","802.11","176","Probe Request, SN=1023
+"20.082064693","06:2b:1d:2d:d8:f9","Broadcast","802.11","176","Probe Request, SN=1024
+"26.086563110","b6:45:d3:ef:c3:7a","Broadcast","802.11","176","Probe Request, SN=1062
+"26.107303803","b6:45:d3:ef:c3:7a","Broadcast","802.11","176","Probe Request, SN=1063
+"30.028257945","8a:29:9b:41:79:f2","Broadcast","802.11","176","Probe Request, SN=1097
+"30.048418686","8a:29:9b:41:79:f2","Broadcast","802.11","176","Probe Request, SN=1098
+"38.093549750","92:c9:45:16:67:a1","Broadcast","802.11","176","Probe Request, SN=1134
+"38.114193199","92:c9:45:16:67:a1","Broadcast","802.11","176","Probe Request, SN=1135
+"51.215853754","be:20:90:e8:0f:6b","Broadcast","802.11","176","Probe Request, SN=1170
+"51.217149709","be:20:90:e8:0f:6b","Broadcast","802.11","176","Probe Request, SN=1171
+"61.820964072","9e:e9:d2:62:c4:b5","Broadcast","802.11","176","Probe Request, SN=1207
+"61.841800507","9e:e9:d2:62:c4:b5","Broadcast","802.11","176","Probe Request, SN=1208
+"66.156033562","d2:32:e7:09:15:0d","Broadcast","802.11","176","Probe Request, SN=1246
+"66.176003065","d2:32:e7:09:15:0d","Broadcast","802.11","176","Probe Request, SN=1247
+"69.123112913","e2:16:2c:ec:3e:77","Broadcast","802.11","176","Probe Request, SN=1281
+"69.149998832","e2:16:2c:ec:3e:77","Broadcast","802.11","176","Probe Request, SN=1282
+"71.975087397","8a:62:b6:21:9b:c7","Broadcast","802.11","176","Probe Request, SN=1318
+"72.003422778","8a:62:b6:21:9b:c7","Broadcast","802.11","176","Probe Request, SN=1319
+"80.086840657","4a:5e:15:5a:7a:6e","Broadcast","802.11","176","Probe Request, SN=1357
+"80.107596215","4a:5e:15:5a:7a:6e","Broadcast","802.11","176","Probe Request, SN=1358
+"84.106216095","a2:4d:3a:85:67:2c","Broadcast","802.11","176","Probe Request, SN=1392
+"84.126922600","a2:4d:3a:85:67:2c","Broadcast","802.11","176","Probe Request, SN=1393
+"92.158398074","42:b8:63:4c:33:bb","Broadcast","802.11","176","Probe Request, SN=1429
+"92.176315718","42:b8:63:4c:33:bb","Broadcast","802.11","176","Probe Request, SN=1430
+"105.246452275","b6:67:97:0a:d6:bf","Broadcast","802.11","176","Probe Request, SN=1466
+"105.266143503","b6:67:97:0a:d6:bf","Broadcast","802.11","176","Probe Request, SN=1467
+"123.258235152","4a:9a:8d:19:95:29","Broadcast","802.11","176","Probe Request, SN=1503
+"123.278961637","4a:9a:8d:19:95:29","Broadcast","802.11","176","Probe Request, SN=1504
+"141.275726553","b6:70:f1:80:7a:44","Broadcast","802.11","176","Probe Request, SN=1540
+"141.296125659","b6:70:f1:80:7a:44","Broadcast","802.11","176","Probe Request, SN=1541
+"174.300246061","9a:00:33:27:84:5e","Broadcast","802.11","176","Probe Request, SN=1583
+"174.320940406","9a:00:33:27:84:5e","Broadcast","802.11","176","Probe Request, SN=1584
+"178.774824196","46:60:42:eb:93:ed","Broadcast","802.11","176","Probe Request, SN=1622
+"178.794451431","46:60:42:eb:93:ed","Broadcast","802.11","176","Probe Request, SN=1623
+"182.868590586","2e:68:86:13:f4:af","Broadcast","802.11","176","Probe Request, SN=1657
+"182.888304434","2e:68:86:13:f4:af","Broadcast","802.11","176","Probe Request, SN=1658
+"187.339999041","4a:62:68:7d:cb:b4","Broadcast","802.11","176","Probe Request, SN=1693
+"187.361313909","4a:62:68:7d:cb:b4","Broadcast","802.11","176","Probe Request, SN=1694
+"195.365936991","de:d6:a1:d6:cf:e7","Broadcast","802.11","176","Probe Request, SN=1730
+"195.386577098","de:d6:a1:d6:cf:e7","Broadcast","802.11","176","Probe Request, SN=1731
+"208.365194904","42:6c:41:97:08:6e","Broadcast","802.11","176","Probe Request, SN=1767
+"208.385796120","42:6c:41:97:08:6e","Broadcast","802.11","176","Probe Request, SN=1768
+"220.761622918","7e:18:0d:89:00:98","Broadcast","802.11","176","Probe Request, SN=1804
+"220.782187109","7e:18:0d:89:00:98","Broadcast","802.11","176","Probe Request, SN=1805
+"226.370413892","3a:09:8f:26:a0:de","Broadcast","802.11","176","Probe Request, SN=1841
+"226.391156374","3a:09:8f:26:a0:de","Broadcast","802.11","176","Probe Request, SN=1842
+"240.587248682","4a:0e:f2:f6:d3:10","Broadcast","802.11","176","Probe Request, SN=1880
+"240.606907671","4a:0e:f2:f6:d3:10","Broadcast","802.11","176","Probe Request, SN=1881
+"244.577034944","7e:6c:c6:72:25:bf","Broadcast","802.11","176","Probe Request, SN=1915
+"244.597226528","7e:6c:c6:72:25:bf","Broadcast","802.11","176","Probe Request, SN=1916
+"252.612058797","72:25:53:5c:7a:36","Broadcast","802.11","176","Probe Request, SN=1952
+"252.631753251","72:25:53:5c:7a:36","Broadcast","802.11","176","Probe Request, SN=1953
+"265.605307175","6a:bf:00:70:18:f1","Broadcast","802.11","176","Probe Request, SN=1989
+"265.625013224","6a:bf:00:70:18:f1","Broadcast","802.11","176","Probe Request, SN=1990
+"283.639501897","9e:6c:30:79:09:a2","Broadcast","802.11","176","Probe Request, SN=2032
+"283.659220793","9e:6c:30:79:09:a2","Broadcast","802.11","176","Probe Request, SN=2033
+"288.725051371","1e:04:51:b8:4f:9d","Broadcast","802.11","176","Probe Request, SN=2071
+"288.745717831","1e:04:51:b8:4f:9d","Broadcast","802.11","176","Probe Request, SN=2072
+
+32 mac diversi in 300 secondi (5min) => cambiamento ogni 9.4s
+intervallo minimo di cambiamento: 3.22s
+intervallo massimo di cambiamento: 33s
+64 pacchetti => 2 mac per tipo prima di cambiarlo
+tutti broadcast e tutti stessa lunghezza
+SN minimo: 1 tra richieste dello stesso burst, 34 tra diversi burst
+SN massimo: 1 tra richieste dello stesso burst, 40 tra diversi burst

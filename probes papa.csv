@@ -1,0 +1,41 @@
+"Time","Source","Destination","Protocol","Length","Info"
+"0.000000000","Google_0e:fe:86","Broadcast","802.11","153","Probe Request, SN=1246
+"0.020056565","Google_0e:fe:86","Broadcast","802.11","153","Probe Request, SN=1247
+"20.478772870","Google_16:71:b9","Broadcast","802.11","153","Probe Request, SN=1272
+"20.519636137","Google_16:71:b9","Broadcast","802.11","153","Probe Request, SN=1275
+"40.607593376","Google_fc:02:ca","Broadcast","802.11","153","Probe Request, SN=1305
+"40.627627762","Google_fc:02:ca","Broadcast","802.11","153","Probe Request, SN=1306
+"60.529810066","Google_00:b4:8a","Broadcast","802.11","153","Probe Request, SN=1333
+"60.550520580","Google_00:b4:8a","Broadcast","802.11","153","Probe Request, SN=1334
+"80.558958993","Google_a9:08:4f","Broadcast","802.11","153","Probe Request, SN=1362
+"80.578992854","Google_a9:08:4f","Broadcast","802.11","153","Probe Request, SN=1363
+"100.575174121","Google_c8:d7:94","Broadcast","802.11","153","Probe Request, SN=1393
+"100.597433718","Google_c8:d7:94","Broadcast","802.11","153","Probe Request, SN=1394
+"126.177714102","Google_62:54:e4","Broadcast","802.11","153","Probe Request, SN=1416
+"126.197759739","Google_62:54:e4","Broadcast","802.11","153","Probe Request, SN=1417
+"153.825444973","Google_e7:d1:31","Broadcast","802.11","143","Probe Request, SN=1441
+"153.996834953","Google_e7:d1:31","Broadcast","802.11","143","Probe Request, SN=1442
+"157.493772620","Google_e2:48:82","Broadcast","802.11","153","Probe Request, SN=1466
+"157.513863436","Google_e2:48:82","Broadcast","802.11","153","Probe Request, SN=1467
+"177.401985590","Google_fb:a2:0c","Broadcast","802.11","153","Probe Request, SN=1489
+"177.449180018","Google_fb:a2:0c","Broadcast","802.11","153","Probe Request, SN=1492
+"201.581892344","Google_27:46:70","Broadcast","802.11","153","Probe Request, SN=1520
+"201.603682772","Google_27:46:70","Broadcast","802.11","153","Probe Request, SN=1521
+"221.572785571","Google_c8:88:a9","Broadcast","802.11","153","Probe Request, SN=1548
+"221.592971051","Google_c8:88:a9","Broadcast","802.11","153","Probe Request, SN=1549
+"243.207523855","Google_e5:43:1c","Broadcast","802.11","153","Probe Request, SN=1576
+"243.227686911","Google_e5:43:1c","Broadcast","802.11","153","Probe Request, SN=1577
+"266.572511158","Google_0e:dc:d6","Broadcast","802.11","153","Probe Request, SN=1603
+"266.592636835","Google_0e:dc:d6","Broadcast","802.11","153","Probe Request, SN=1604
+"286.593584674","Google_71:26:8e","Broadcast","802.11","153","Probe Request, SN=1631
+"286.613684433","Google_71:26:8e","Broadcast","80.11","153","Probe Request, SN=1632
+"320.536863896","Google_95:d6:f9","Broadcast","802.11","153","Probe Request, SN=1660
+"320.556899537","Google_95:d6:f9","Broadcast","802.11","153","Probe Request, SN=1661
+
+16 mac diversi in 330 secondi (5min e 30s) => cambiamento ogni 20.625s
+intervallo minimo di cambiamento: 3.7s
+intervallo massimo di cambiamento: 33.9s
+32 pacchetti => 2 mac per tipo prima di cambiarlo
+tutti broadcast e tutti stessa lunghezza
+SN minimo: 1 tra richieste dello stesso burst, 22 tra diversi burst
+SN massimo: 3 tra richieste dello stesso burst, 30 tra diversi burst
