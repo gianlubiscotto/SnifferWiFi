@@ -1,0 +1,26 @@
+Il mac address non dice nulla riguardo il dispositivo per esempio se si
+tratta di un pc, di uno smartphone o di uno smartwatch.
+
+Che io sappa non c'è nessuna legge che vieti la collezione di mac address. 
+
+Non solo non dovrebbe essere illegale, se una persona vuole connettersi ad
+una rete, questa informazione deve essere necessariamente ceduta gratuitamente
+
+Se pensiamo agli hotspot questi hanno i log con gli indirizzi che si sono 
+connessi. E le cinque terre già offre un servizio di hotspot quindi possono
+già vedere chi si è connesso.
+
+Possono esserci leggi su come vengono usati questi dati ma non impediscono
+necessariamente la collezione di questi.
+
+Management frame non data frame. Codice non rinconducibile in nessun modo
+ad un individuo e spesso anche randomico quindi neanche il suo originale.
+
+In caso mi sbagliassi e i mac address fossero considerati dati personali,
+si potrebbero seguire le linee guida del Data Protection Act, documento che
+indica dei principi per la buona gestione di dati personali.
+Alcuni esempi sono che le persone dovrebbero essere a conoscenza di chi 
+colleziona i loro dati e per cosa sono utilizzati. Che questi dati non siano
+processati oltre agli scopi dichiarati.
+Si potrebbero modificare i mac e generare stringhe univoche e cancellarle 
+quando non più necessarie ecc
