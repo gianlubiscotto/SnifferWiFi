@@ -1,0 +1,16 @@
+QUERY 
+
+Quante persone ci sono state in tutto il periodo: 
+SELECT COUNT(DISTINCT macaddr) FROM Persone WHERE reali > 0
+
+Quante persone ci sono alle 10.20:
+SELECT now_reali, now_random, time FROM Persone time >='2019-08-07 10:20:00' AND time < '2019-08-07 10:21:00' LIMIT 1
+
+Quante persone ci sono ora (ultima riga scitta):
+SELECT now_reali, now_random, time 
+FROM Persone
+ORDER BY time DESC
+LIMIT 1
+
+Quante persone ci sono state dalle 10.20 alle 10.30: 
+SELECT COUNT(DISTINCT macaddr) FROM Persone WHERE reali > 0 AND time >= '2019-08-07 10:20:00' AND time < '2019-08-07 10:30:00'
